@@ -1,16 +1,67 @@
-# React + Vite
+# 🌐 CodeAlpha Language Translator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web-based language translation application developed as part of the **CodeAlpha Internship Program**.
 
-Currently, two official plugins are available:
+The application provides a clean and responsive interface for translating text between multiple languages using a translation API. The project uses **HTML, CSS, JavaScript, Node.js, and Express.js**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🌍 Multi-language translation
+- 🔎 Source language selection
+- 🌐 Multiple target languages
+- 🔄 Swap source and target languages
+- 📋 Copy translated text
+- ⚡ API-based real-time translation
+- 🔄 Loading indicator
+- ❌ Error handling
+- ⌨️ `Ctrl + Enter` keyboard shortcut
+- 📱 Responsive design
+- 🔌 REST API based backend
+- 🧩 Frontend and backend separation
+- 🔐 Environment variable support
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Technologies Used
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+
+### Backend
+
+- Node.js
+- Express.js
+- CORS
+- dotenv
+- REST API
+
+### Translation API
+
+- MyMemory Translation API
+
+### Tools
+
+- Visual Studio Code
+- Git
+- GitHub
+- Live Server
+
+---
+
+# 📋 Requirements
+
+Before running the project, make sure the following software is installed.
+
+## 1. Node.js
+
+Node.js **18 or higher** is recommended.
+
+Check your Node.js version:
+
+```bash
+node --version
