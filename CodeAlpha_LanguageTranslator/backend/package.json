@@ -1,19 +1,15 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "description": "CodeAlpha Language Translator Backend",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "@google-cloud/translate": "^10.1.1",
-    "cors": "^2.8.6",
-    "dotenv": "^18.0.4",
-    "express": "^5.2.1"
+    "@google-cloud/translate": "^9.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0"
   }
 }

@@ -1,11 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
-
-dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -19,12 +16,16 @@ app.get("/", (req, res) => {
 
 app.post("/api/translate", async (req, res) => {
     try {
-        const { text, sourceLanguage, targetLanguage } = req.body;
+        const {
+            text,
+            sourceLanguage,
+            targetLanguage
+        } = req.body;
 
         if (!text || !text.trim()) {
             return res.status(400).json({
                 success: false,
-                message: "Please enter text."
+                message: "Please enter some text."
             });
         }
 
@@ -35,73 +36,73 @@ app.post("/api/translate", async (req, res) => {
             });
         }
 
-        /*
-         * Temporary local translation.
-         * Google Cloud Translation API can be connected here later.
-         */
+        // MyMemory API
+        const source =
+            sourceLanguage === "auto"
+                ? "en"
+                : sourceLanguage;
 
-        const translations = {
-            "hello": {
-                bn: "হ্যালো",
-                es: "Hola",
-                fr: "Bonjour",
-                de: "Hallo",
-                hi: "नमस्ते"
-            },
-            "how are you": {
-                bn: "আপনি কেমন আছেন?",
-                es: "¿Cómo estás?",
-                fr: "Comment allez-vous ?",
-                de: "Wie geht es dir?",
-                hi: "आप कैसे हैं?"
-            },
-            "good morning": {
-                bn: "সুপ্রভাত",
-                es: "Buenos días",
-                fr: "Bonjour",
-                de: "Guten Morgen",
-                hi: "सुप्रभात"
-            },
-            "thank you": {
-                bn: "ধন্যবাদ",
-                es: "Gracias",
-                fr: "Merci",
-                de: "Danke",
-                hi: "धन्यवाद"
-            },
-            "i love you": {
-                bn: "আমি তোমাকে ভালোবাসি",
-                es: "Te quiero",
-                fr: "Je t'aime",
-                de: "Ich liebe dich",
-                hi: "मैं तुमसे प्यार करता हूँ"
-            }
-        };
+        const langPair =
+            `${source}|${targetLanguage}`;
 
-        const input = text.trim().toLowerCase();
+        const apiUrl =
+            `https://api.mymemory.translated.net/get` +
+            `?q=${encodeURIComponent(text)}` +
+            `&langpair=${encodeURIComponent(langPair)}`;
 
-        let translatedText = translations[input]?.[targetLanguage];
+        console.log("API URL:", apiUrl);
 
-        if (!translatedText) {
-            translatedText =
-                `[Demo Translation] ${text}`;
+        const response = await fetch(apiUrl);
+
+        const data = await response.json();
+
+        console.log("MyMemory Response:", data);
+
+        if (!response.ok) {
+            return res.status(500).json({
+                success: false,
+                message: "Translation API request failed."
+            });
         }
+
+        // Check translation
+        if (
+            !data.responseData ||
+            !data.responseData.translatedText
+        ) {
+            return res.status(500).json({
+                success: false,
+                message:
+                    data.responseDetails ||
+                    "Translation result was not found."
+            });
+        }
+
+        const translated =
+            data.responseData.translatedText;
 
         res.json({
             success: true,
-            translatedText: translatedText
+            translatedText: translated
         });
 
     } catch (error) {
-        console.error(error);
+
+        console.error(
+            "Server Error:",
+            error
+        );
 
         res.status(500).json({
             success: false,
-            message: "Translation failed."
+            message:
+                "Unable to connect to translation service."
         });
     }
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(
+        `CodeAlpha Backend running at http://localhost:${PORT}`
+    );
 });
