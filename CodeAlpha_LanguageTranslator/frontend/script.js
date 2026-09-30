@@ -23,9 +23,9 @@ const loading =
     document.getElementById("loading");
 
 
-// ==============================
+// ===============================
 // TRANSLATE
-// ==============================
+// ===============================
 
 translateBtn.addEventListener("click", async () => {
 
@@ -57,48 +57,40 @@ translateBtn.addEventListener("click", async () => {
 
                 body: JSON.stringify({
                     text: text,
+
                     sourceLanguage:
                         sourceLanguage.value,
+
                     targetLanguage:
                         targetLanguage.value
                 })
             }
         );
 
-
         const data =
             await response.json();
-
 
         console.log(
             "Backend Response:",
             data
         );
 
-
         if (!response.ok) {
-
             throw new Error(
                 data.message ||
                 "Translation failed."
             );
-
         }
-
 
         if (!data.success) {
-
             throw new Error(
                 data.message ||
                 "Translation failed."
             );
-
         }
-
 
         translatedText.innerText =
             data.translatedText;
-
 
     } catch (error) {
 
@@ -117,15 +109,13 @@ translateBtn.addEventListener("click", async () => {
 
         translateBtn.disabled =
             false;
-
     }
-
 });
 
 
-// ==============================
-// COPY
-// ==============================
+// ===============================
+// COPY TRANSLATION
+// ===============================
 
 copyBtn.addEventListener(
     "click",
@@ -162,16 +152,14 @@ copyBtn.addEventListener(
             alert(
                 "Unable to copy translation."
             );
-
         }
-
     }
 );
 
 
-// ==============================
-// SWAP
-// ==============================
+// ===============================
+// SWAP LANGUAGES
+// ===============================
 
 swapBtn.addEventListener(
     "click",
@@ -188,14 +176,13 @@ swapBtn.addEventListener(
 
         targetLanguage.value =
             source;
-
     }
 );
 
 
-// ==============================
+// ===============================
 // CTRL + ENTER
-// ==============================
+// ===============================
 
 inputText.addEventListener(
     "keydown",
@@ -205,10 +192,7 @@ inputText.addEventListener(
             event.ctrlKey &&
             event.key === "Enter"
         ) {
-
             translateBtn.click();
-
         }
-
     }
 );
