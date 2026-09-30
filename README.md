@@ -1,30 +1,56 @@
 # 🌐 CodeAlpha Language Translator
 
-A modern web-based language translation application developed as part of the **CodeAlpha Internship Program**.
+A modern, responsive, and full-stack language translation web application developed as part of my **CodeAlpha Internship**.
 
-The application provides a clean and responsive interface for translating text between multiple languages using a translation API. The project uses **HTML, CSS, JavaScript, Node.js, and Express.js**.
+The project demonstrates practical experience in building a frontend interface, developing a RESTful backend API, integrating an external translation service, handling asynchronous requests and errors, and deploying a web application.
+
+---
+
+## 🚀 Live Demo
+
+🔗 **Live Application:**  
+https://code-alpha-language-translator-two.vercel.app/
+
+💻 **GitHub Repository:**  
+https://github.com/Sadik-SWE/CodeAlpha_LanguageTranslator
+
+---
+
+## 📌 Project Overview
+
+**CodeAlpha Language Translator** is a web-based translation application that allows users to translate text between multiple languages through a simple and responsive interface.
+
+The application follows a client-server architecture where the frontend communicates with a Node.js/Express backend through a REST API. The backend processes translation requests and communicates with the external translation service.
+
+This project was developed to gain practical experience with:
+
+- Frontend development
+- REST API development
+- Backend integration
+- Asynchronous JavaScript
+- API request/response handling
+- Error handling
+- Git & GitHub
+- Web deployment
 
 ---
 
 ## ✨ Features
 
 - 🌍 Multi-language translation
-- 🔎 Source language selection
-- 🌐 Multiple target languages
 - 🔄 Swap source and target languages
-- 📋 Copy translated text
+- 📋 Copy translated text with one click
 - ⚡ API-based real-time translation
-- 🔄 Loading indicator
-- ❌ Error handling
-- ⌨️ `Ctrl + Enter` keyboard shortcut
-- 📱 Responsive design
-- 🔌 REST API based backend
-- 🧩 Frontend and backend separation
-- 🔐 Environment variable support
+- 🔄 Translation loading indicator
+- ❌ Error handling and validation
+- ⌨️ `Ctrl + Enter` keyboard shortcut for translation
+- 📱 Responsive user interface
+- 🔌 RESTful backend API
+- 🌐 Live web deployment
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Technology Stack
 
 ### Frontend
 
@@ -36,32 +62,54 @@ The application provides a clean and responsive interface for translating text b
 
 - Node.js
 - Express.js
-- CORS
-- dotenv
 - REST API
+- CORS
 
-### Translation API
+### Translation Service
 
 - MyMemory Translation API
 
-### Tools
+### Development Tools
 
 - Visual Studio Code
 - Git
 - GitHub
-- Live Server
+- npm
+
+### Deployment
+
+- Vercel
 
 ---
 
-# 📋 Requirements
+## 🏗️ Project Architecture
 
-Before running the project, make sure the following software is installed.
-
-## 1. Node.js
-
-Node.js **18 or higher** is recommended.
-
-Check your Node.js version:
-
-```bash
-node --version
+```text
+                    User
+                     │
+                     ▼
+             ┌─────────────────┐
+             │    Frontend     │
+             │  HTML/CSS/JS    │
+             └────────┬────────┘
+                      │
+                      │ HTTP POST
+                      ▼
+             ┌─────────────────┐
+             │  Express.js     │
+             │  REST API       │
+             └────────┬────────┘
+                      │
+                      │ Translation Request
+                      ▼
+             ┌─────────────────┐
+             │ MyMemory API    │
+             │ Translation     │
+             └────────┬────────┘
+                      │
+                      │ Translation Result
+                      ▼
+             ┌─────────────────┐
+             │    Frontend     │
+             │ Display Result  │
+             └─────────────────┘
