@@ -46,7 +46,7 @@ translateBtn.addEventListener("click", async () => {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/translate",
+            "/api/translate",
             {
                 method: "POST",
 
