@@ -2,11 +2,15 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-const PORT = 5000;
 
+// Render automatically provides PORT
+const PORT = process.env.PORT || 5000;
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Home route
 app.get("/", (req, res) => {
     res.json({
         success: true,
@@ -14,6 +18,7 @@ app.get("/", (req, res) => {
     });
 });
 
+// Translation API
 app.post("/api/translate", async (req, res) => {
     try {
         const {
@@ -22,6 +27,7 @@ app.post("/api/translate", async (req, res) => {
             targetLanguage
         } = req.body;
 
+        // Validate text
         if (!text || !text.trim()) {
             return res.status(400).json({
                 success: false,
@@ -29,35 +35,41 @@ app.post("/api/translate", async (req, res) => {
             });
         }
 
+        // Validate target language
         if (!targetLanguage) {
             return res.status(400).json({
                 success: false,
-                message: "Please select target language."
+                message: "Please select a target language."
             });
         }
 
-        // MyMemory API
+        // MyMemory does not use "auto"
+        // For now, default auto-detect to English
         const source =
             sourceLanguage === "auto"
                 ? "en"
                 : sourceLanguage;
 
-        const langPair =
-            `${source}|${targetLanguage}`;
+        const langPair = `${source}|${targetLanguage}`;
 
         const apiUrl =
-            `https://api.mymemory.translated.net/get` +
+            "https://api.mymemory.translated.net/get" +
             `?q=${encodeURIComponent(text)}` +
             `&langpair=${encodeURIComponent(langPair)}`;
 
-        console.log("API URL:", apiUrl);
+        console.log("Translation request:", {
+            text,
+            source,
+            targetLanguage
+        });
 
         const response = await fetch(apiUrl);
 
         const data = await response.json();
 
-        console.log("MyMemory Response:", data);
+        console.log("MyMemory response:", data);
 
+        // API error
         if (!response.ok) {
             return res.status(500).json({
                 success: false,
@@ -65,7 +77,7 @@ app.post("/api/translate", async (req, res) => {
             });
         }
 
-        // Check translation
+        // Check translation result
         if (
             !data.responseData ||
             !data.responseData.translatedText
@@ -78,20 +90,16 @@ app.post("/api/translate", async (req, res) => {
             });
         }
 
-        const translated =
+        const translatedText =
             data.responseData.translatedText;
 
         res.json({
             success: true,
-            translatedText: translated
+            translatedText: translatedText
         });
 
     } catch (error) {
-
-        console.error(
-            "Server Error:",
-            error
-        );
+        console.error("Server Error:", error);
 
         res.status(500).json({
             success: false,
@@ -101,8 +109,9 @@ app.post("/api/translate", async (req, res) => {
     }
 });
 
+// Start server
 app.listen(PORT, () => {
     console.log(
-        `CodeAlpha Backend running at http://localhost:${PORT}`
+        `CodeAlpha Backend running on port ${PORT}`
     );
 });
